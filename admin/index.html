@@ -62,6 +62,11 @@
             //隔壁的展开或者收起
             $(this).next('.level02').slideToggle();
         })
+        $('.level01').click(function() {
+            $(this).addClass('active').siblings().removeClass('active');
+        })
+
+
 
     })
 </script>
