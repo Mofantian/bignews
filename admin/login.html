@@ -67,7 +67,9 @@
                             alert(res.msg);
                         } else if (res.code === 200) {
                             //正确
-                            alert(res.msg);
+                            // alert(res.msg);
+                            //保存token 方便后续的使用
+                            window.localStorage.setItem('token', res.token);
                             //去index
                             window.location.href = './index.html';
                         }
