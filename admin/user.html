@@ -56,8 +56,7 @@
                 <div class="form-group">
                     <label for="inputEmail4" class="col-sm-2 control-label">密码：</label>
                     <div class="col-sm-4">
-                        <input type="password" name="password" class="form-control password" id="inputEmail4"
-                            value="12345678">
+                        <input type="password" name="password" class="form-control password" id="inputEmail4" value="12345678">
                     </div>
                 </div>
                 <div class="form-group">
@@ -69,5 +68,48 @@
         </div>
     </div>
 </body>
+
+<script>
+    $(function() {
+        //用户详情获取
+        $.ajax({
+            url: BigNew.user_detail,
+            success: function(res) {
+                // console.log(res);
+                // $('.username').val(res.data.username);
+                // $('.nickname').val(res.data.nickname);
+                // $('.email').val(res.data.email);
+                // $('.password').val(res.data.password);
+                //标签元素的标记和数据有相同部分
+                for (const key in res.data) {
+                    $('.' + key).val(res.data[key]);
+                }
+                $('.user_pic').attr('src', res.data.userPic);
+            },
+        });
+
+        //个人数据修改
+        $('.btn-edit').click(function(e) {
+            //阻止默认行为
+            e.preventDefault();
+            //创建FormData
+            //FormData()需要传入都没对象
+            var data = new FormData($('form')[0]);
+            $.ajax({
+                url: BigNew.user_edit,
+                type: 'post',
+                data: data,
+                //不设置
+                processData: false,
+                //不设置类型
+                contentType: false,
+                success: function(res) {
+                    console.log(res);
+                }
+            });
+        })
+
+    })
+</script>
 
 </html>
