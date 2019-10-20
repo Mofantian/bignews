@@ -105,8 +105,24 @@
                 contentType: false,
                 success: function(res) {
                     console.log(res);
+                    //如果更新成功 刷新页面
+                    if (res.code == 200) {
+                        //刷新自己
+                        // window.location.reload();
+                        //刷新父页面
+                        window.parent.location.reload();
+                    }
                 }
             });
+        })
+
+
+        //本地图片预览
+        $('#exampleInputFile').change(function() {
+            //生成url
+            var url = URL.createObjectURL(this.files[0]);
+            //设置给img的src
+            $(this).siblings('img').attr('src', url);
         })
 
     })
