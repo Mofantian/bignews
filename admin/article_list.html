@@ -127,6 +127,29 @@
 
 
 
+        //文章筛选
+        $('#btnSearch').click(function(e) {
+            e.preventDefault();
+            var type = $('#selCategory').val();
+            var state = $('#selStatus').val();
+
+            $.ajax({
+                url: BigNew.article_query,
+                data: {
+                    type: type,
+                    state: state
+                },
+                success: function(res) {
+                    var res = template('articleTem', res);
+                    //渲染到页面上
+                    $('.article_tbody').html(res);
+                }
+            })
+        })
+
+
+
+
     })
 </script>
 
