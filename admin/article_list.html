@@ -54,7 +54,7 @@
                         <th class="text-center" width="100">操作</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="article_tbody">
                     <tr>
                         <td>王积千造统最头</td>
                         <td>杰克</td>
@@ -81,6 +81,22 @@
     <option value="{{$value.id}}">{{$value.name}}</option>
     {{/each}}
 </script>
+<!-- 定义模板 -->
+<script type="text/html" id="articleTem">
+    {{each data.data}}
+    <tr>
+        <td>{{$value.title}}</td>
+        <td>{{$value.author}}</td>
+        <td>{{$value.category}}</td>
+        <td class="text-center">{{$value.date}}</td>
+        <td class="text-center">{{$value.state}}</td>
+        <td class="text-center" data-id='{{$value.id}}'>
+            <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
+            <a href="javascript:void(0);" class="btn btn-danger btn-xs delete">删除</a>
+        </td>
+    </tr>
+    {{/each}}
+</script>
 <script>
     $(function() {
         //调用接口获取文章分类数据
@@ -92,6 +108,25 @@
                 $('#selCategory').html(res);
             }
         })
+
+
+
+        //获取文章的列表数据,不做任何的筛选
+        $.ajax({
+            url: BigNew.article_query,
+            data: {
+                //每页要多少条数据
+                perpage: 10
+            },
+            success: function(res) {
+                var res = template('articleTem', res);
+                //渲染到页面上
+                $('.article_tbody').html(res);
+            }
+        })
+
+
+
     })
 </script>
 
